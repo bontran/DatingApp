@@ -14,7 +14,7 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService  tokenService)
+        public AccountController(DataContext context, ITokenService tokenService)
         {
             _tokenService = tokenService;
             _context = context;
@@ -38,7 +38,8 @@ namespace API.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return new UserDto{
+            return new UserDto
+            {
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user)
             };
@@ -62,7 +63,8 @@ namespace API.Controllers
                 }
 
             }
-             return new UserDto{
+            return new UserDto
+            {
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user)
             };

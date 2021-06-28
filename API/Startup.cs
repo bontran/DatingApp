@@ -49,7 +49,7 @@ namespace API
                 app.UseDeveloperExceptionPage();
 
             }
-
+            //will issue HTTP response codes redirecting from http to https.
             app.UseHttpsRedirection();
 
             app.UseRouting();
