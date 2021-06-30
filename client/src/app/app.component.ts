@@ -22,7 +22,8 @@ export class AppComponent implements OnInit {
     Typescript has no way of guaranteeing that the object is still the same object.
     In this case, you need to tell Typescript what type the parsed object will be with
     a cast.*/
-    const user: User = JSON.parse(localStorage.getItem('user') || '{}') as User;
+    //get a user from localstore and pass it to accountservice
+    const user: User = JSON.parse(localStorage.getItem('user')) as User;
     this.accountService.setCurrentUser(user);
   }
 
