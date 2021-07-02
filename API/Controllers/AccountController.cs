@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using API.Interfaces;
-
 namespace API.Controllers
 {
     public class AccountController : BaseApiController
@@ -47,12 +46,20 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> login(LoginDto loginDto)
         {
+            //make request to data base 
             var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
 
             if (user == null) return Unauthorized("Invalid username");
 
+            //the passsword here is the password that we store in db
+            //because it give us the same computed hash of the password 
+            //because weare giving it the same key that was used when we created the password hash
+            //in the first place
             using var hmac = new HMACSHA512(user.PasswordSalt);
-
+            // lay password trong logindto
+            //if the logindto.password is the same as the password we used when we created
+            //the original hash version of the password with the same password salt
+            //then these should be identical
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
             for (int i = 0; i < computedHash.Length; i++)
@@ -63,8 +70,10 @@ namespace API.Controllers
                 }
 
             }
+
             return new UserDto
             {
+
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user)
             };

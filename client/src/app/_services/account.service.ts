@@ -32,7 +32,7 @@ export class AccountService {
   //form our navbar
   login(model: any){
     //model contain our username and password that we send up to the server
-    //
+  
     return this.http.post<User>(this.baseUrl + 'account/login', model)
     .pipe(
       map((response: User) =>{

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AccountService } from './_services/account.service';
 import { User } from './_models/user';
+import { AppService } from './_services/app.service';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,10 +12,10 @@ import { User } from './_models/user';
 export class AppComponent implements OnInit {
   title = 'The Dating app';
   //private http: HttpClient,
-  constructor ( private accountService: AccountService){}
+  constructor ( private accountService: AccountService, private appservice: AppService){}
   users: any;
   ngOnInit() {
-
+    this.appservice.getAllPosts().pipe(map((data) => data)).subscribe(res => console.log(res));
     this.setCurrentUser();
   }
 
