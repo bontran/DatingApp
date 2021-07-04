@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import {map} from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
 //in angular, service is singleton, 
 /**
@@ -21,7 +22,7 @@ import { User } from '../_models/user';
 })
 export class AccountService {
   //used to make a request to API
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl =  environment.apiUrl;
   //ReplaySubject like a buffer object is going to store the values inside here
   //any time a subcriber subcribes to less observable, its going to omit the last value inside this   
   private currentUserSource = new ReplaySubject<User>(1);//how many version   of cur user are we going to store?

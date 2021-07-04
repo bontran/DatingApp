@@ -1,1 +1,8 @@
-<p>member-list works!</p>
+<div class="row">
+    <div *ngFor="let member of members" class="col-2">
+        <!-- pass memeber as input property -->
+        <app-member-card [member]="member"></app-member-card>
+        <!-- ==> pass each member is going to be passed into one of these 
+        member card and display them -->
+    </div>
+</div>

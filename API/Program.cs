@@ -38,7 +38,7 @@ namespace API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                    .UseUrls("http://localhost:5000", "https://localhost:5001")
+                    .UseUrls("http://localhost:5003", "https://localhost:5004")
                     .UseStartup<Startup>();
                 });
     }
