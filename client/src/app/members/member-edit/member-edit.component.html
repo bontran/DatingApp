@@ -1,0 +1,77 @@
+<div *ngIf="member" class="row">
+    <div class="col-4">
+        <h1>Your profile</h1>
+    </div>
+    <div class="col-8">
+        <!-- if the form this dirty alart will display -->
+        <div class="alert alert-primary" *ngIf="editForm.dirty">
+            <strong>Information:</strong> You have made changes.
+                  Any unsaved changes will be lost
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <img src="{{member.photoUrl || '.assets/user.png'}}" alt="{{member.knowAs}}"
+             class="card-img-top img-thumbnail">
+             <div class="card-body">
+                 <!-- contain property of user -->
+                 <div>
+                     <strong>Location:</strong>
+                     <p>{{member.city}}, {{member.country}}</p>
+                 </div>
+                 <div>
+                    <strong>LocatAgeion:</strong>
+                    <p>{{member.age}}</p>
+                </div>
+                <div>
+                    <strong>Last Active:</strong>
+                    <p>{{member.lastActive}}</p>
+                </div>
+                <div>
+                    <strong>Member since:</strong>
+                    <p>{{member.created}}</p>
+                </div>
+             </div>
+             <div class="card-footer">   
+                 <!-- hook up the button to the form(2) -->
+                 <!-- disable: not dirty -->
+                <button type="submit" form="editForm" [disabled]="!editForm.dirty" class="btn btn-warning btn-lg ">Save Changes</button>
+             </div>
+        </div>
+    </div>
+    <div class="col-8 ">
+        <tabset class="member-tabset">
+            <!-- two ways binding -->
+            <tab heading="About {{member.username}}">
+                <!-- access form make angular from  (1)-->
+                <!-- set the id for form(3) -->
+                <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()" class="style">
+                    <h4>Description</h4>
+                    <!-- introduction came from member -->
+                    <textarea class="form-control" [(ngModel)]="member.introduction" name="introduction"rows="6"></textarea>
+                    <h4 class="mt-2">Looking for</h4>
+                    <textarea class="form-control" [(ngModel)]="member.lookingFor" name="lookingFor"rows="6"></textarea>
+                    <h4 class="mt-2">Interests</h4>
+                    <textarea class="form-control" [(ngModel)]="member.interests" name="interests"rows="6"></textarea>
+                    <h4 class="mt-2">Location details</h4>
+                    <div style="display: flex; ">
+                        <label class="mt-1" for="city">City:</label>
+                        <input [(ngModel)]="member.city" type="text" name="city" class="form-control mx-2"
+                        style="color:aliceblue; background:#222; border: aliceblue 1px solid;">
+                        <label class="mt-1" for="country">Country:</label>
+                        <input [(ngModel)]="member.country" type="text" name="country" class="form-control mx-2"
+                        style="color:aliceblue; background:#222; border: aliceblue 1px solid;">
+                    </div>
+                </form>
+              
+            </tab>
+            <tab heading="Edit Photos">
+                <h4>Photo edit will go here</h4>
+            </tab>
+         </tabset>
+    </div>
+</div>
+name property does do something for us, angular uses this name property to track the property
+inside the form, entry model gives the binding and the name property is used in the background
+so that when we do update our form, then angular is going to reset our form then angular looking
+for name property and it wants to be the same 

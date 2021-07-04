@@ -28,6 +28,8 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
+    "enableIvy": false,
+    "compilationMode": "partial"
   
   }
 }

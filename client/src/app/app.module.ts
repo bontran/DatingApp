@@ -23,7 +23,10 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { SharedModule } from './_modules/shared.module';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
-import { NgxGalleryModule } from 'ngx-gallery';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +41,7 @@ import { NgxGalleryModule } from 'ngx-gallery';
     NotFoundComponent,
     ServerErrorComponent,
     MemberCardComponent,
+    MemberEditComponent,
 
   ],
   imports: [
@@ -49,15 +53,16 @@ import { NgxGalleryModule } from 'ngx-gallery';
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
+    NgxSpinnerModule,
     TooltipModule.forRoot(),
     SharedModule,
-    NgxGalleryModule
     
-   
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
