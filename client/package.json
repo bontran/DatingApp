@@ -24,6 +24,7 @@
     "bootswatch": "^5.0.2",
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
+    "ng-gallery": "^5.0.0",
     "ngx-bootstrap": "^6.2.0",
     "ngx-gallery": "^5.10.0",
     "ngx-spinner": "^12.0.0",

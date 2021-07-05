@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,ChangeDetectorRef, EventEmitter, OnInit, OnChanges, SimpleChanges, ElementRef, Renderer2 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import{HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'; 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +27,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { NgxSpinnerModule } from "ngx-spinner";
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,10 +56,10 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     }),
     NgxSpinnerModule,
     TooltipModule.forRoot(),
-    SharedModule,
+    SharedModule
     
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
