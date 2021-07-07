@@ -21,6 +21,12 @@ using Microsoft.OpenApi.Models;
 using API.Extensions;
 using API.Middleware;
 
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+using System.IO;
+using API.Helpers;
+
 namespace API
 {
     public class Startup
@@ -36,10 +42,12 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddApplicationServices(_config);
             services.AddControllers();
             services.AddCors();
             services.AddIndentityServices(_config);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

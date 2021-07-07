@@ -1,7 +1,7 @@
 <div *ngIf="member" class="row">
     <div class="col-4">
         <div class="card">
-            <img src="{{member.photoUrl || '.assets/user.png'}}" alt="{{member.knowAs}}"
+            <img src="{{member.photoUrl || './assets/images/1.jpg'}}" alt="{{member.knowAs}}"
              class="card-img-top img-thumbnail">
              <div class="card-body">
                  <!-- contain property of user -->
@@ -43,8 +43,9 @@
                 <p>{{member.interests}}</p>
             </tab>
             <tab heading="Photo">
-                <ngx-gallery [options]="galleryOptions" [images]="galleryImages" 
-                style="display:inline-block; margin-bottom: 20px"></ngx-gallery>
+               
+                <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages" 
+                style="display:inline-block; margin-bottom: 20px"></ngx-gallery> -->
             </tab>
             <tab heading="Messages">
                 <h4>Messages will go here</h4>

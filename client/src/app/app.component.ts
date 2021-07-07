@@ -14,11 +14,12 @@ export class AppComponent implements OnInit {
   //private http: HttpClient,
   constructor ( private accountService: AccountService, private appservice: AppService){}
   users: any;
+  
   ngOnInit() {
     this.appservice.getAllPosts().pipe(map((data) => data)).subscribe(res => console.log(res));
     this.setCurrentUser();
   }
-
+ 
   setCurrentUser(){
     /*fortunee is correct, however since everything in localStorage is stored as strings,
     Typescript has no way of guaranteeing that the object is still the same object.

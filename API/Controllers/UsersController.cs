@@ -10,6 +10,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using API.Extensions;
+using System;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using System.Net.Http.Headers;
+
 namespace API.Controllers
 
 {
@@ -18,8 +25,13 @@ namespace API.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public UsersController(IUserRepository userRepository, IMapper mapper)
+        private readonly IPhotoService _PhotoService;
+
+        public UsersController(IUserRepository userRepository, IMapper mapper,
+        IPhotoService PhotoService)
         {
+
+            _PhotoService = PhotoService;
             _mapper = mapper;
             _userRepository = userRepository;
         }
@@ -33,9 +45,9 @@ namespace API.Controllers
             return Ok(user);
         }
 
-        //a[i/users/3
+        //api/users/3
 
-        [HttpGet("{username}")]
+        [HttpGet("{username}", Name = "GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
 
@@ -56,8 +68,7 @@ namespace API.Controllers
             //the user in that token
             //User.FindFirst(ClaimTypes.NameIdentifier)?.Value; it give us user's username 
             //from the token that the api uses to authenticate this user
-            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var user = await _userRepository.GetUserByUsernameAsync(username);
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUserName());
             //the overload that we are going to use allows us to pass in the member update DTO
 
             //instead user.City = memberUpdateDto.City
@@ -67,6 +78,35 @@ namespace API.Controllers
 
             if (await _userRepository.SaveAllAsync()) return NoContent();
             return BadRequest("Fail to update user");
+        }
+
+        [HttpPost("add-photo")]
+        public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
+        {
+
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUserName());
+            //result back for photo service 
+            var result = await _PhotoService.AddPhotoAsync(file);
+            if (result.Error != null) return BadRequest(result.Error.Message);
+            //create a new photo
+            var photo = new Photo
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
+            //check if the users alreay got any phots in their collection
+            if (user.Photos.Count == 0)
+            {
+                photo.IsMain = true;
+            }
+            user.Photos.Add(photo);
+            //return the photo
+            if (await _userRepository.SaveAllAsync())
+            {
+                //return _mapper.Map<PhotoDto>(photo);
+                return CreatedAtRoute("GetUser", new { Username = user.UserName }, _mapper.Map<PhotoDto>(photo));
+            }
+            return BadRequest("Problem adding phot");
         }
     }
 }

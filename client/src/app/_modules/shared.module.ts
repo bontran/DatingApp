@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { NgxGalleryModule } from 'ngx-gallery';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker'
+// import { NgxGalleryModule } from 'ngx-gallery';
 
 
 
@@ -12,14 +13,15 @@ import { NgxGalleryModule } from 'ngx-gallery';
     CommonModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(), 
-    NgxGalleryModule,
+    BsDatepickerModule.forRoot()
+ 
 
   ],
   exports:[
    BsDropdownModule,
    CommonModule,
     TabsModule, 
-     NgxGalleryModule,
+    BsDatepickerModule
   ]
 })
 export class SharedModule { }
