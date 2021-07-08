@@ -65,10 +65,16 @@ export class MembersService {
     if(member){
       return of(member);
     }
-    console.log(member);
     return this.http.get<Member>(this.baseUrl+'users/'+username);
   }
-
+  addLike(username: string){
+    return this.http.post(this.baseUrl + 'likes/' + username,{})
+  }
+  getLikes(predicate: string, pageNumber: any, pageSize: any){
+    let params =this.getPaginationHeaders(pageNumber, pageSize);
+    params = params.append('predicate', predicate);
+    return this.getPaginationResult<Partial<Member[]>>(this.baseUrl + 'likes', params);
+  }
   updateMember(member: Member){
     //pass member as the objects that we pass to our update member method
     //pipe (doing some thing with data)
