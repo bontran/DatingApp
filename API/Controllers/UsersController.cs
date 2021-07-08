@@ -16,6 +16,7 @@ using System;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Net.Http.Headers;
+using API.Helpers;
 
 namespace API.Controllers
 
@@ -35,14 +36,20 @@ namespace API.Controllers
             _mapper = mapper;
             _userRepository = userRepository;
         }
-        // add 2 endpoint
+
+        //get userparam from query
         [HttpGet]
-
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var user = await _userRepository.GetMembersAsync();
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUserName());
+            userParams.CurrentUserName = User.GetUserName();
+            if (string.IsNullOrEmpty(userParams.Gender)) userParams.Gender = user.Gender == "male" ? "false" : "male";
+            var users = await _userRepository.GetMembersAsync(userParams);
 
-            return Ok(user);
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize,
+                users.TotalCount, users.TotalPages);
+
+            return Ok(users);
         }
 
         //api/users/3

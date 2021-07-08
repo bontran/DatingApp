@@ -17,9 +17,11 @@ namespace API.Extensions
             //tell our configration where to actually get the configration here
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<LogUserActivity>();
             //add services to respository
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPhotoService, PhotoService>();
+
             //this enough for Automator to go ahead and find those profiles
             //the create maps that we created inside automapperproiflesPủe
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);

@@ -4,8 +4,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker'
 // import { NgxGalleryModule } from 'ngx-gallery';
-
-
+import {PaginationModule} from 'ngx-bootstrap/pagination'
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
   declarations: [],
@@ -13,15 +14,20 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker'
     CommonModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(), 
-    BsDatepickerModule.forRoot()
- 
+    BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
+    TimeagoModule.forRoot()
 
   ],
   exports:[
    BsDropdownModule,
    CommonModule,
     TabsModule, 
-    BsDatepickerModule
+    BsDatepickerModule,
+    PaginationModule,
+    ButtonsModule,
+    TimeagoModule
   ]
 })
 export class SharedModule { }
