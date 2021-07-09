@@ -32,6 +32,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { UploadComponent } from './upload/upload.component';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
+import { MemberMessagesComponent } from './member-messages/member-messages.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +52,7 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
     UploadComponent,
     TextInputComponent,
     DateInputComponent,
+    MemberMessagesComponent,
 
   ],
   imports: [

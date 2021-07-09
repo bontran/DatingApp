@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker'
-// import { NgxGalleryModule } from 'ngx-gallery';
+
 import {PaginationModule} from 'ngx-bootstrap/pagination'
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
@@ -17,7 +17,8 @@ import { TimeagoModule } from 'ngx-timeago';
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
-    TimeagoModule.forRoot()
+    TimeagoModule.forRoot(),
+
 
   ],
   exports:[
@@ -27,7 +28,7 @@ import { TimeagoModule } from 'ngx-timeago';
     BsDatepickerModule,
     PaginationModule,
     ButtonsModule,
-    TimeagoModule
+    TimeagoModule,
   ]
 })
 export class SharedModule { }

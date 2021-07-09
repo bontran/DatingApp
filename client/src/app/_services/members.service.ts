@@ -8,6 +8,7 @@ import { PaginatedResult } from '../_models/pagination';
 import { User } from '../_models/user';
 import { UserParams } from '../_models/userParams';
 import { AccountService } from './account.service';
+import { getPaginationHeaders, getPaginationResult } from './paginationHelper';
 
 @Injectable({
   providedIn: 'root'
@@ -44,14 +45,14 @@ export class MembersService {
       return of(response);
     }
     //console.log(Object.values(UserParams).join('-'));
-    let params = this.getPaginationHeaders(UserParams.pageNumber, UserParams.pageSize);
+    let params = getPaginationHeaders(UserParams.pageNumber, UserParams.pageSize);
     params = params.append('minAge', UserParams.minAge.toString());
     params = params.append('maxAge', UserParams.maxAge.toString());
     params = params.append('gender', UserParams.gender);
     params = params.append('orderBy', UserParams.orderBy);
     //go to our API we go and get our members if we dont have them in our cache
     //but if we do have them in our cash, in the query is identical then we just retrieve this from our cache
-    return this.getPaginationResult<Member[]>(this.baseUrl+'users', params)
+    return getPaginationResult<Member[]>(this.baseUrl+'users', params, this.http)
     .pipe(map(response => {
       this.memberCache.set(Object.values(UserParams).join('-'), response);
       return response;
@@ -71,9 +72,9 @@ export class MembersService {
     return this.http.post(this.baseUrl + 'likes/' + username,{})
   }
   getLikes(predicate: string, pageNumber: any, pageSize: any){
-    let params =this.getPaginationHeaders(pageNumber, pageSize);
+    let params =getPaginationHeaders(pageNumber, pageSize);
     params = params.append('predicate', predicate);
-    return this.getPaginationResult<Partial<Member[]>>(this.baseUrl + 'likes', params);
+    return getPaginationResult<Partial<Member[]>>(this.baseUrl + 'likes', params, this.http);
   }
   updateMember(member: Member){
     //pass member as the objects that we pass to our update member method
