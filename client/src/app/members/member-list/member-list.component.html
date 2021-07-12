@@ -4,29 +4,29 @@
 <div class="container" mt-3>
     <form #form="ngForm" class="mb-3" style="display: flex;" (ngSubmit)="loadMembers()"autocompete="off">
         <div class="form-group" style="display: flex;">
-            <label style="margin-top: 8px; margin-right: 5px;">Age from: </label>
-            <input type="number" class="form-control ml-1" style="width: 70px;"name="minAge"
+            <label style=" margin-right: 5px;margin-top: 7px;">Age from: </label>
+            <input type="number" class="form-control ml-1" style="width: 60px; height: 40px;"name="minAge"
             [(ngModel)]="userParams.minAge">
         </div>
         <div class="form-group px-2" style="display: flex;">
-            <label style="margin-top: 8px; margin-right: 5px;">Age to: </label>
-            <input type="number" class="form-control ml-1" style="width: 70px;"name="maxAge"
+            <label style="margin-top: 7px; margin-right: 5px;">Age to: </label>
+            <input type="number" class="form-control ml-1" style="width: 60px;height: 40px;"name="maxAge"
             [(ngModel)]="userParams.maxAge">
         </div>
         <div class="form-group px-2" style="display: flex;">
-            <label style="margin-top: 8px; margin-right: 5px;">Show: </label>
-            <select name="gender" style="width: 130px;" [(ngModel)]="userParams.gender" class="form-control ml-1">
+            <label style=" margin-right: 5px;margin-top: 7px;">Show: </label>
+            <select name="gender" style="width: 85px; height: 40px;" [(ngModel)]="userParams.gender" class="form-control ml-1">
                 <option  *ngFor="let gender of genderList" [value]="gender.value">
                     {{gender.display}}
                 </option>
             </select>
         </div>
-        <button class="btn btn-primary ml-1" style="margin-left: 5px;" type="submit">Apply filters</button>
-        <button (click)="resetFilters()" class="btn btn-info" style="margin-left: 6px;" type="submit">Reset filters</button>
+        <button class="btn btn-warning ml-1" style="margin-left: 5px;  height: 40px;" type="submit">Apply filters</button>
+        <button (click)="resetFilters()" class="btn btn-info" style="margin-left: 6px;  height: 40px;" type="submit">Reset filters</button>
         <div class="col">
-            <div class="btn-group float-right">
+            <div class="btn-group">
                 <button 
-                style="margin-left: 10px;"
+                style="margin-left: 50px;  height: 40px;"
                 type="button"
                 class="btn btn-primary"
                 name='orderBy'
@@ -34,7 +34,7 @@
                 btnRadio='lastActive'
                 [(ngModel)]="userParams.orderBy">Last Active</button>
                 <button 
-                style="margin-left: 10px;"
+                style=" height: 40px; margin-left: 5px"
                 type="button"
                 class="btn btn-danger"
                 name='orderBy'

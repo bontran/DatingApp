@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
   users: any;
   
   ngOnInit() {
-    this.appservice.getAllPosts().pipe(map((data) => data)).subscribe(res => console.log(res));
     this.setCurrentUser();
   }
  
@@ -27,6 +26,7 @@ export class AppComponent implements OnInit {
     a cast.*/
     //get a user from localstore and pass it to accountservice
     const user: User = JSON.parse(localStorage.getItem('user')) as User;
+    console.log(user);
     this.accountService.setCurrentUser(user);
   }
 
